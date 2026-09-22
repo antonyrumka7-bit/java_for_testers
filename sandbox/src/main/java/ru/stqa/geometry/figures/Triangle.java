@@ -25,11 +25,11 @@ public class Triangle {
     public static void printTriangleArea(Triangle t) {
         var text = String.format("Площадь треугольника со сторонами %f, %f и %f = %f", t.a, t.b, t.c, t.triangleArea());
         System.out.println(text);
-    
+
     }
 
     double triangleArea() {
-        double polu = (this.a + this.b + this.c) / 2d;
+        double polu = trianglePerimeter() / 2d;
         double s = polu * (polu - this.a) * (polu - this.b) * (polu - this.c);
         return Math.sqrt(s);
     }
