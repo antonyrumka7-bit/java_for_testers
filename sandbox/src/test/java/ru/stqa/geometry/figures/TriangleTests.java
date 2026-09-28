@@ -18,4 +18,14 @@ public class TriangleTests {
         var result = t.trianglePerimeter();
         Assertions.assertEquals(15.0, result);
     }
+
+    @Test
+    void cannotCreateTriangleWithNegativeSideLengthSide() {
+        try {
+            new Triangle (7.0, 5.0, 1.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //OK
+        }
+    }
 }
