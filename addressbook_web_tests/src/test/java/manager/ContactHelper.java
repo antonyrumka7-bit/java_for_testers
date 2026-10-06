@@ -50,11 +50,11 @@ public void removeContact() {
         click(By.name("firstname"));
     }
 
-    private void removeSelectedContact(){
+    private void removeSelectedContact() {
         click(By.name("delete"));
     }
 
-    private void returnToHomePage(){
+    private void returnToHomePage() {
         click(By.linkText("home page"));
     }
 
@@ -72,7 +72,6 @@ public void removeContact() {
         type(By.name("home"), "home");
         type(By.name("mobile"), "mobile");
         type(By.name("work"), "work");
-        type(By.name("homepage"), "homepage");
         type(By.name("email"), "email");
         type(By.name("email2"), "email2");
         type(By.name("email3"), "email3");

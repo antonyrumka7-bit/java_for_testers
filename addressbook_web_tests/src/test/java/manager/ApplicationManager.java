@@ -6,8 +6,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import tests.ContactCreationTests;
 
 public class ApplicationManager {
 
@@ -27,11 +25,10 @@ public class ApplicationManager {
             } else if ("edge".equals(browser)) {
                 driver = new EdgeDriver();
             } else {
-                throw new IllegalArgumentException(String.format("Unknow browser %s, browser"));
+                throw new IllegalArgumentException(String.format("Unknow browser %s", browser));
             }
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get("http://localhost/addressbook/");
-            driver.manage().window().setSize(new Dimension(996, 693));
             session().login("secret", "admin");
         }
     }
