@@ -30,7 +30,7 @@ public void createContact(ContactData contact) {
         returnToHomePage();
     }
 public void removeContact() {
-         openContactPage();
+         openHomePage();
          selectContact();
          removeSelectedContact();
          returnToHomePage();
