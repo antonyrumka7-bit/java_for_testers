@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import java.time.Duration;
+
 public class ApplicationManager {
 
     protected WebDriver driver;
@@ -22,6 +24,7 @@ public class ApplicationManager {
         if (driver == null) {
             if ("chrome".equals(browser)) {
                 driver = new ChromeDriver();
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
             } else if ("edge".equals(browser)) {
                 driver = new EdgeDriver();
             } else {
