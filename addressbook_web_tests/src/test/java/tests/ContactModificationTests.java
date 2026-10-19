@@ -12,7 +12,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     void canModifyContact() {
         if (app.contact().getCount() == 0) {
-            app.contact().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3"));
+            app.contact().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", ""));
         }
         var oldContacts = app.contact().getList();
         var rnd = new Random();
@@ -27,7 +27,7 @@ public class ContactModificationTests extends TestBase {
         };
         newContacts.sort(compareById);
         expectedList.sort(compareById);
-        Assertions.assertEquals(newContacts, expectedList);
+        Assertions.assertEquals(expectedList, newContacts);
     }
 }
 

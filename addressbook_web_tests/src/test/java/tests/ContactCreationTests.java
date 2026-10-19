@@ -16,16 +16,18 @@ public class ContactCreationTests extends TestBase {
     public static List<ContactData> contactProvider() {
         var result = new ArrayList<ContactData>();
         for (var firstname : List.of("", "firstname")) {
-                for (var lastname : List.of("", "lastname")) {
-                    for (var address : List.of("", "address")) {
+            for (var lastname : List.of("", "lastname")) {
+                for (var address : List.of("", "address")) {
+                    for (var photo : List.of("", "src/test/resources/images/avatar.png")) {
                         result.add(new ContactData()
                                 .withFirstname(firstname)
                                 .withLastname(lastname)
-                                .withAddress(address));
+                                .withAddress(address)
+                                .withphoto(photo));
                     }
                 }
+            }
         }
-
 
 
  for (int i = 0; i < 5; i++) {

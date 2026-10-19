@@ -82,6 +82,7 @@ public void createContact(ContactData contact) {
         type(By.name("email"), contact.email());
         type(By.name("email2"), contact.email2());
         type(By.name("email3"), contact.email3());
+        attach(By.name("photo"), contact.photo());
     }
     private void initContactModification(ContactData contact) {
         click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));
