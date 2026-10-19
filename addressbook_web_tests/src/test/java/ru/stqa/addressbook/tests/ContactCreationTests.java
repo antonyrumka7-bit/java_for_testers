@@ -1,6 +1,7 @@
-package tests;
+package ru.stqa.addressbook.tests;
 
-import model.ContactData;
+import ru.stqa.addressbook.common.CommonFunctions;
+import ru.stqa.addressbook.model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -8,8 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import tests.TestBase;
 
 public class ContactCreationTests extends TestBase {
 
@@ -32,19 +31,19 @@ public class ContactCreationTests extends TestBase {
 
  for (int i = 0; i < 5; i++) {
         result.add(new ContactData()
-                .withFirstname(randomString(i * 10))
-                .withMiddlename(randomString(i * 10))
-                .withLastname(randomString(i * 10))
-                .withNickname(randomString(i * 10))
-                .withTitle(randomString(i * 10))
-                .withCompany(randomString(i * 10))
-                .withAddress(randomString(i * 10))
-                .withHome(randomString(i * 10))
-                .withMobile(randomString(i * 10))
-                .withWork(randomString(i * 10))
-                .withEmail(randomString(i * 10))
-                .withEmail2(randomString(i * 10))
-                .withEmail3(randomString(i * 10))
+                .withFirstname(CommonFunctions.randomString(i * 10))
+                .withMiddlename(CommonFunctions.randomString(i * 10))
+                .withLastname(CommonFunctions.randomString(i * 10))
+                .withNickname(CommonFunctions.randomString(i * 10))
+                .withTitle(CommonFunctions.randomString(i * 10))
+                .withCompany(CommonFunctions.randomString(i * 10))
+                .withAddress(CommonFunctions.randomString(i * 10))
+                .withHome(CommonFunctions.randomString(i * 10))
+                .withMobile(CommonFunctions.randomString(i * 10))
+                .withWork(CommonFunctions.randomString(i * 10))
+                .withEmail(CommonFunctions.randomString(i * 10))
+                .withEmail2(CommonFunctions.randomString(i * 10))
+                .withEmail3(CommonFunctions.randomString(i * 10))
                 .withphoto(randomFile("src/test/resources/images")));
  }
         return result;
@@ -85,7 +84,7 @@ expectedList.sort(compareById);
 
 public static List<ContactData> negativeContactProvider() {
     var result = new ArrayList<ContactData>(List.of(
-            new ContactData().withFirstname("firstname")));
+            new ContactData().withFirstname("firstname'")));
     return result;
 }
 
