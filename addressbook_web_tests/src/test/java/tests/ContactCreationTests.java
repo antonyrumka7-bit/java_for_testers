@@ -18,7 +18,7 @@ public class ContactCreationTests extends TestBase {
         for (var firstname : List.of("", "firstname")) {
             for (var lastname : List.of("", "lastname")) {
                 for (var address : List.of("", "address")) {
-                    for (var photo : List.of("", "src/test/resources/images/avatar.png")) {
+                    for (var photo : List.of("", randomFile("src/test/resources/images")))  {
                         result.add(new ContactData()
                                 .withFirstname(firstname)
                                 .withLastname(lastname)
@@ -44,7 +44,8 @@ public class ContactCreationTests extends TestBase {
                 .withWork(randomString(i * 10))
                 .withEmail(randomString(i * 10))
                 .withEmail2(randomString(i * 10))
-                .withEmail3(randomString(i * 10)));
+                .withEmail3(randomString(i * 10))
+                .withphoto(randomFile("src/test/resources/images")));
  }
         return result;
     }
@@ -63,7 +64,6 @@ public void CanCreateMultipleContacts(ContactData contact) {
     newContacts.sort(compareById);
     var expectedList = new ArrayList<>(oldContacts);
     expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id())
-            .withFirstname("")
             .withMiddlename("")
             .withLastname("")
             .withNickname("")
@@ -75,7 +75,9 @@ public void CanCreateMultipleContacts(ContactData contact) {
             .withWork("")
             .withEmail("")
             .withEmail2("")
-            .withEmail3(""));
+            .withEmail3("")
+            .withphoto(""));
+
 
 expectedList.sort(compareById);
     Assertions.assertEquals(newContacts, expectedList);

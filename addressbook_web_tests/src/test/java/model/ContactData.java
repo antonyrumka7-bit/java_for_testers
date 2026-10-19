@@ -45,7 +45,7 @@ public record ContactData(String id, String firstname, String middlename, String
     }
 
     public ContactData withMobile(String mobile) {
-        return new ContactData("", this.firstname, this.middlename, this.lastname, this.nickname, this.title, this.company, this.address, this.home, mobile, this.work, this.email, this.email2, this.email3, this.photo);
+        return new ContactData(this.id, this.firstname, this.middlename, this.lastname, this.nickname, this.title, this.company, this.address, this.home, mobile, this.work, this.email, this.email2, this.email3, this.photo);
     }
 
     public ContactData withWork(String work) {
