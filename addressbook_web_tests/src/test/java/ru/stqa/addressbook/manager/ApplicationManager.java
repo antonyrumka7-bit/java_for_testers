@@ -19,6 +19,8 @@ public class ApplicationManager {
 
     private ContactHelper contact;
 
+    private JdbcHelper jdbc;
+
     private Properties properties;
 
 
@@ -51,13 +53,20 @@ public class ApplicationManager {
            groups = new GroupHelper(this);
        }
        return groups;
-    }
+   }
 
     public ContactHelper contact() {
        if (contact == null) {
            contact = new ContactHelper(this);
        }
        return contact;
+    }
+
+    public JdbcHelper jdbc() {
+        if (jdbc == null) {
+            jdbc = new JdbcHelper(this);
+        }
+        return jdbc;
     }
 
     protected boolean isElementPresent(By locator) {

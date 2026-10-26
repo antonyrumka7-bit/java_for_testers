@@ -53,34 +53,29 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
+    public static List<ContactData> singleRandomGroup() {
+        return List.of(new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(20))
+                .withAddress(CommonFunctions.randomString(30)));
+
+    }
+
 @ParameterizedTest
-@MethodSource("contactProvider")
-public void CanCreateMultipleContacts(ContactData contact) {
-    var oldContacts = app.contact().getList();
+@MethodSource("singleRandomGroup")
+public void CanCreateContacts(ContactData contact) {
+    var oldContacts = app.jdbc().getContactList();
     app.contact().createContact(contact);
-    var newContacts = app.contact().getList();
+    var newContacts = app.jdbc().getContactList();
     Comparator<ContactData> compareById = (o1, o2) -> {
         return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
     };
     newContacts.sort(compareById);
+    var maxId = newContacts.get(newContacts.size() - 1).id();
+
     var expectedList = new ArrayList<>(oldContacts);
-    expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id())
-            .withMiddlename("")
-            .withLastname("")
-            .withNickname("")
-            .withTitle("")
-            .withCompany("")
-            .withAddress("")
-            .withHome("")
-            .withMobile("")
-            .withWork("")
-            .withEmail("")
-            .withEmail2("")
-            .withEmail3("")
-            .withphoto(""));
-
-
-expectedList.sort(compareById);
+    expectedList.add(contact.withId(maxId));
+    expectedList.sort(compareById);
     Assertions.assertEquals(newContacts, expectedList);
 }
 
