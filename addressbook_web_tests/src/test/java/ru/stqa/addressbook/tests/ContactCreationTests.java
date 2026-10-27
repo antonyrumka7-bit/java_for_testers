@@ -2,6 +2,7 @@ package ru.stqa.addressbook.tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.junit.jupiter.api.Test;
 import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.ContactData;
 import org.junit.jupiter.api.Assertions;
@@ -92,6 +93,23 @@ public void canNotCreateContact(ContactData contact) {
     app.contact().createContact(contact);
     var newContacts = app.contact().getList();
     Assertions.assertEquals(newContacts, oldContacts);
+}
+
+@Test
+    void CanCreateContactInGroup() {
+        var contact = new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
+                .withphoto(randomFile("src/test/resources/images"));
+    if (app.hbm().getGroupCount() == 0) {
+        app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+    }
+    var group = app.hbm().getGroupList().get(0);
+
+    var oldRelated = app.hbm().createContactInGroup(group);
+        app.contact().create(contact, group);
+    var newRelated = app.hbm().createContactInGroup(group);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
 }
 }
 
