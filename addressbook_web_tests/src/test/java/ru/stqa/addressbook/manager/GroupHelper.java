@@ -89,6 +89,7 @@ public class GroupHelper  extends HelperBase{
         openGroupsPage();
         selectAllGroups();
         removeSelectedGroups();
+        returnToGroupsPage();
     }
 
     private void selectAllGroups() {

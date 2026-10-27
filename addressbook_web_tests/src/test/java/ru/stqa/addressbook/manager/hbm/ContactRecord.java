@@ -18,4 +18,18 @@ import jakarta.persistence.Table;
         public String lastname;
         @Column(name = "address")
         public String address;
+
+
+
+        public ContactRecord() {
+        }
+
+        public ContactRecord(int id, String firstname, String lastname, String address) {
+
+            this.id = id;
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.address = address;
+        }
     }
+

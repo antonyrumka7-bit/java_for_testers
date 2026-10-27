@@ -33,7 +33,7 @@ public void createContact(ContactData contact) {
     }
 
     public void removeContact(ContactData contact) {
-         openContactPage();
+         openHomePage();
          selectContact(contact);
          removeSelectedContacts();
          returnToHomePage();
