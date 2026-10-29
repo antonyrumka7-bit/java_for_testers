@@ -1,11 +1,14 @@
 package ru.stqa.addressbook.tests;
 
 import ru.stqa.addressbook.model.ContactData;
+import ru.stqa.addressbook.model.GroupData;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 
 public class ContactRemovalTests extends TestBase {
 
@@ -31,6 +34,29 @@ public class ContactRemovalTests extends TestBase {
         }
         app.contact().removeAllContacts();
         Assertions.assertEquals(0, app.hbm().getContactCount());
+    }
+
+    @Test
+    public void canRemoveContactInGroup() {
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", ""));
+        }
+        if (app.hbm().getContactsInGroup(group).isEmpty()) {
+            var contact = app.hbm().getContactList().get(0);
+            app.contact().addContact(contact, group);
+        }
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        var rnd = new Random();
+        var index = rnd.nextInt(oldRelated.size());
+        app.contact().removeContactInGroup(oldRelated.get(index), group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        var expectedList = new ArrayList<>(oldRelated);
+        expectedList.remove(index);
+        Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newRelated));
     }
 }
 

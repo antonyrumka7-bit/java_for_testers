@@ -141,4 +141,35 @@ public void createContact(ContactData contact) {
         }
         return contacts;
     }
+
+    public ContactData searchContactForAddInGroup(List<ContactData> oldContacts, List<ContactData> oldRelated) {
+        for (ContactData contact : oldContacts) {
+            if (!oldRelated.contains(contact)) {
+                return contact;
+            }
+        }
+        return  null;
+    }
+
+
+    public void addContact(ContactData contact, GroupData group) {
+        openHomePage();
+        selectContact(contact);
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+        click(By.name("add"));
+        openHomePage();
+    }
+
+    public void removeContactInGroup(ContactData contact, GroupData group) {
+        openHomePage();
+        selectGroupFilter(group.id());
+        selectContact(contact);
+        click(By.name("remove"));
+        click(By.linkText("home"));
+        selectGroupFilter("");
+    }
+
+    private void selectGroupFilter(String value) {
+        new Select(manager.driver.findElement(By.cssSelector("select[name='group']"))).selectByValue(value);
+    }
 }
