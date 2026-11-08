@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.manager;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.addressbook.model.ContactData;
 import org.openqa.selenium.By;
@@ -122,10 +123,9 @@ public void createContact(ContactData contact) {
     }
 
     private void selectAllContacts() {
-        var checkboxes = manager.driver.findElements(By.name("selected[]"));
-        for (var checkbox : checkboxes) {
-            checkbox.click();
-        }
+        manager.driver
+                .findElements(By.name("selected[]"))
+                .forEach(WebElement::click);
     }
 
     public List<ContactData> getList() {
