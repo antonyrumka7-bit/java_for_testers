@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.tests;
 
+import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 import java.util.Set;
@@ -19,17 +20,12 @@ public class ContactModificationTests extends TestBase {
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
-        var testData = new ContactData().withFirstname("modified firstname");
+        var testData = new ContactData().withFirstname(CommonFunctions.randomString(10));
         app.contact().modifyContact(oldContacts.get(index), testData);
         var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, testData.withId(oldContacts.get(index).id()));
-        Comparator<ContactData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newContacts.sort(compareById);
-        expectedList.sort(compareById);
-        Assertions.assertEquals(expectedList, newContacts);
+        Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newContacts));
     }
 
     @Test

@@ -10,13 +10,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.addressbook.model.GroupData;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -56,7 +54,7 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
-    public static Stream<ContactData> singleRandomGroup() {
+    public static Stream<ContactData> randomGroups() {
         Supplier<ContactData> randomContact = () -> (new ContactData()
                 .withFirstname(CommonFunctions.randomString(10))
                 .withLastname(CommonFunctions.randomString(20))
@@ -66,21 +64,17 @@ public class ContactCreationTests extends TestBase {
     }
 
 @ParameterizedTest
-@MethodSource("singleRandomGroup")
+@MethodSource("randomGroups")
 public void CanCreateContacts(ContactData contact) {
     var oldContacts = app.hbm().getContactList();
     app.contact().createContact(contact);
     var newContacts = app.hbm().getContactList();
-    Comparator<ContactData> compareById = (o1, o2) -> {
-        return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-    };
-    newContacts.sort(compareById);
-    var maxId = newContacts.get(newContacts.size() - 1).id();
+    var extraContacts = newContacts.stream().filter(g -> ! oldContacts.contains(g)).toList();
+    var newId = extraContacts.get(0).id();
 
     var expectedList = new ArrayList<>(oldContacts);
-    expectedList.add(contact.withId(maxId));
-    expectedList.sort(compareById);
-    Assertions.assertEquals(newContacts, expectedList);
+    expectedList.add(contact.withId(newId));
+    Assertions.assertEquals(Set.copyOf(newContacts), Set.copyOf(expectedList));
 }
 
 public static List<ContactData> negativeContactProvider() {
