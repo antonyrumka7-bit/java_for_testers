@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class ContactCreationTests extends TestBase {
 
@@ -54,11 +56,12 @@ public class ContactCreationTests extends TestBase {
         return result;
     }
 
-    public static List<ContactData> singleRandomGroup() {
-        return List.of(new ContactData()
+    public static Stream<ContactData> singleRandomGroup() {
+        Supplier<ContactData> randomContact = () -> (new ContactData()
                 .withFirstname(CommonFunctions.randomString(10))
                 .withLastname(CommonFunctions.randomString(20))
                 .withAddress(CommonFunctions.randomString(30)));
+        return Stream.generate(randomContact).limit(3);
 
     }
 

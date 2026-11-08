@@ -15,6 +15,10 @@ public record Square (double side) {
         String text = String.format("Площадь квадрата со стороной %f = %f", s.side, s.area());
         System.out.println(text);
     }
+    public static void printPerimeter(Square s) {
+        String text = String.format("Периметр квадрата со стороной %f = %f", s.side, s.perimetr());
+        System.out.println(text);
+    }
 
     public double area() {
 
