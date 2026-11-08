@@ -62,7 +62,7 @@ public class Generator {
 
     private Object generateData(Supplier<Object> dataSupplier) {
         return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
-        
+
     }
 
     private Object generateGroups() {
