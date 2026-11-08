@@ -18,6 +18,10 @@ import jakarta.persistence.Table;
         public String lastname;
         @Column(name = "address")
         public String address;
+        public String home;
+        public String mobile;
+        public String work;
+
 
 
 

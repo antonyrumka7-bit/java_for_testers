@@ -8,14 +8,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Random;
 
 public class ContactModificationTests extends TestBase {
     @Test
     void canModifyContact() {
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", ""));
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
         }
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
@@ -31,7 +30,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     void canAddContactInGroup() {
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", ""));
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
         }
         var oldContacts = app.hbm().getContactList();
         if (app.hbm().getGroupCount() == 0) {
@@ -41,7 +40,7 @@ public class ContactModificationTests extends TestBase {
         var oldRelated = app.hbm().getContactsInGroup(group);
         ContactData contactForAddInGroup = app.contact().searchContactForAddInGroup(oldContacts, oldRelated);
         if (contactForAddInGroup == null) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", ""));
+            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
             var newContactList = app.hbm().getContactList();
             contactForAddInGroup = app.contact().searchContactForAddInGroup(newContactList, oldRelated);
         }

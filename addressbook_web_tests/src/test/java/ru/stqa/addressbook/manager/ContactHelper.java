@@ -173,4 +173,12 @@ public void createContact(ContactData contact) {
     private void selectGroupFilter(String value) {
         new Select(manager.driver.findElement(By.cssSelector("select[name='group']"))).selectByValue(value);
     }
+
+    public String getPhones(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();
+
+
+
+    }
 }
