@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 
 public class HelperBase {
 
-    public class HelperBase {
         protected final ApplicationManager manager;
 
         public HelperBase(ApplicationManager manager) {
@@ -29,7 +28,7 @@ public class HelperBase {
 
 
     protected boolean isElementPresent(By locator) {
-        return manager.driver().findElements(locator).size() > 0);
+        return manager.driver().findElements(locator).size() > 0;
     }
 }
 
