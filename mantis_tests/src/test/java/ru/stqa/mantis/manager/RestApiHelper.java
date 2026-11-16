@@ -8,6 +8,8 @@ import io.swagger.client.auth.ApiKeyAuth;
 import io.swagger.client.model.Identifier;
 import io.swagger.client.model.Issue;
 import ru.stqa.mantis.model.IssueData;
+import io.swagger.client.api.UserApi;
+import io.swagger.client.model.User;
 
 public class RestApiHelper extends HelperBase {
 
@@ -33,8 +35,19 @@ public class RestApiHelper extends HelperBase {
         try {
             apiInstance.issueAdd(issue);
         } catch (ApiException e) {
-            new RuntimeException(e);
+            throw new RuntimeException(e);
         }
+    }
 
+    public void createUser(String username, String email) {
+        var user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        UserApi apiInstance = new UserApi();
+        try {
+            apiInstance.userAdd(user);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

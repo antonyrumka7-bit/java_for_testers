@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 public class UserRegistrationTests extends TestBase {
 
     @Test
-
     void canRegistrUser() {
         var username = CommonFunctions.randomString(10);
         var email = String.format("%s@localhost", username);
@@ -20,6 +19,25 @@ public class UserRegistrationTests extends TestBase {
         app.jamesApi().addUser(email, password);
 
         app.registration().start(username, email);
+
+        var messages = app.mail().receive(email, password, Duration.ofSeconds(60));
+        var url = extractUrl(messages.get(0).content());
+
+        app.registration().finish(url, username, password);
+
+        app.http().login(username, password);
+        Assertions.assertTrue(app.http().isLoggedIn());
+    }
+
+    @Test
+    void canRegisterUserViaRest() {
+        var username = CommonFunctions.randomString(10);
+        var email = String.format("%s@localhost", username);
+        var password = "password";
+
+        app.jamesApi().addUser(email, password);
+
+        app.rest().createUser(username, email);
 
         var messages = app.mail().receive(email, password, Duration.ofSeconds(60));
         var url = extractUrl(messages.get(0).content());
