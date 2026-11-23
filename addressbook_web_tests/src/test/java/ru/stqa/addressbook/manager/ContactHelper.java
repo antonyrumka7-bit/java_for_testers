@@ -111,7 +111,7 @@ public void createContact(ContactData contact) {
     }
 
     private void selectContact(ContactData contact) {
-        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
+        click(By.cssSelector(String.format("input[name='selected[]'][value='%s']", contact.id())));
     }
 
     public int getCount() {
@@ -166,8 +166,10 @@ public void createContact(ContactData contact) {
     public void removeContactInGroup(ContactData contact, GroupData group) {
         openHomePage();
         selectGroupFilter(group.id());
+        manager.driver.findElement(By.name("remove"));
         selectContact(contact);
         click(By.name("remove"));
+        manager.driver.findElement(By.className("msgbox"));
         click(By.linkText("home"));
         selectGroupFilter("");
     }

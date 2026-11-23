@@ -11,10 +11,10 @@ public class ContactInfoTests extends TestBase {
 
     @Test
     void testPhones() {
-        var contacts = app.hbm().getContactList();
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
+            app.contact().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
         }
+        var contacts = app.hbm().getContactList();
         var expected = contacts.stream().collect(Collectors.toMap(ContactData::id, contact ->
             Stream.of(contact.home(), contact.mobile(), contact.work())
                     .filter(s -> s != null && !"".equals(s))
@@ -26,10 +26,10 @@ public class ContactInfoTests extends TestBase {
 
     @Test
     void testAddress() {
-        var contacts = app.hbm().getContactList();
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
+            app.contact().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
         }
+        var contacts = app.hbm().getContactList();
         var contact = contacts.get(0);
         var address = app.contact().getAddress(contact);
         var expected = Stream.of(contact.address())
@@ -40,10 +40,10 @@ public class ContactInfoTests extends TestBase {
 
     @Test
     void testEmails() {
-        var contacts = app.hbm().getContactList();
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
+            app.contact().createContact(new ContactData("", "firstname", "middlename", "lastname", "nickname", "title", "company", "address", "home", "mobile", "work", "email", "email2", "email3", "", ""));
         }
+        var contacts = app.hbm().getContactList();
         var contact = contacts.get(0);
         var emails = app.contact().getEmails(contact);
         var expected = Stream.of(contact.email(), contact.email2(), contact.email3())

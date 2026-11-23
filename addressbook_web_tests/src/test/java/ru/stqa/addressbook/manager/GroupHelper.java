@@ -15,9 +15,7 @@ public class GroupHelper  extends HelperBase{
     }
 
     public void openGroupsPage() {
-        if (!manager.isElementPresent(By.name("new"))) {
-            click(By.linkText("groups"));
-        }
+        click(By.linkText("groups"));
     }
 
     public void createGroup(GroupData group) {
